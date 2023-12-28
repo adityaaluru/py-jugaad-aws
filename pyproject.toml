@@ -1,0 +1,27 @@
+# pyproject.toml
+
+[build-system]
+requires      = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "py-jugaad-aws"
+version = "0.1.2"
+description = "Python libraries to ease development of APIs and event driven apps for AWS serverless architecture"
+readme = "README.md"
+authors = [{ name = "Aditya Aluru", email = "info@realpython.com" }]
+license = { file = "LICENSE" }
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+]
+keywords = ["jugaad", "serverless", "aws", "event driven", "apis", "scaffolding"]
+dependencies = [
+    "boto3",
+    "requests",
+]
+requires-python = ">=3.9"
+
+[project.urls]
+Homepage = "https://github.com/adityaaluru/py-jugaad-aws"

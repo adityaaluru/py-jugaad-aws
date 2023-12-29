@@ -4,6 +4,7 @@ from time import strftime, localtime
 from .  import threadlocal
 from . import utils
 from . import constants
+import sys
 
 # Usage examples:
 # logger = STLogger.getLogger(__name__)
@@ -20,6 +21,7 @@ class STFormatter(logging.Formatter):
             "caller": threadlocal.ThreadLocal.getData(constants.THREADLOCAL_CALLER),
             "tenantId": threadlocal.ThreadLocal.getData(constants.THREADLOCAL_TENANTID),
             "correlationId": threadlocal.ThreadLocal.getData(constants.THREADLOCAL_CORRELATION_ID),
+            "appName": threadlocal.ThreadLocal.getData(constants.THREADLOCAL_APP_NAME),
             "loggerName": record.name,
             "file": record.filename,
             "func": record.funcName,
@@ -59,23 +61,24 @@ class STLogger:
     def getLogger(name):
         logger = logging.getLogger(name)
         logger.setLevel(STLogger.convertLogLevel(utils.getConfig(constants.LOG_LEVEL_KEY,constants.DEFAULT_LOG_LEVEL)))
+        print("Logger Handlers: ",len(logger.handlers))
         for handler in logger.handlers:
             logger.removeHandler(handler)
-        consoleHandler = logging.StreamHandler()
+        consoleHandler = logging.StreamHandler(stream=sys.stdout)
         consoleHandler.setFormatter(STFormatter())
         logger.addHandler(consoleHandler)
         return logger
     
     @staticmethod
     def convertLogLevel(logLevelString:str):
-        if logLevelString.upper() is "DEBUG":
+        if logLevelString.upper() == "DEBUG":
             return logging.DEBUG
-        if logLevelString.upper() is "INFO":
+        if logLevelString.upper() == "INFO":
             return logging.INFO
-        if logLevelString.upper() is "WARN" or "WARNING":
+        if logLevelString.upper() == "WARN" or "WARNING":
             return logging.WARNING
-        if logLevelString.upper() is "ERROR":
+        if logLevelString.upper() == "ERROR":
             return logging.ERROR
-        if logLevelString.upper() is "CRITICAL":
+        if logLevelString.upper() == "CRITICAL":
             return logging.CRITICAL
         return logging.INFO

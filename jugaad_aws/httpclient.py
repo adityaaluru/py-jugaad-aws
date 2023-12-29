@@ -1,6 +1,6 @@
 import time, math
 import requests
-from .  import threadlocal
+from .  import threadlocal, constants
 from . import logger as log
 from requests.adapters import HTTPAdapter
 
@@ -12,7 +12,6 @@ DEFAULT_POOL_CONN=10
 DEFAULT_POOL_MAX=10
 DEFAULT_POOL_BLOCK=False
 
-CORRELATION_ID_HEADER="x-correlation-id"
 
 class STHttpAdapter(HTTPAdapter):
         def __init__(
@@ -32,7 +31,7 @@ class STHttpAdapter(HTTPAdapter):
             timeout = self.__STtimeout__
 
             if threadlocal.ThreadLocal.getData("correlationId") is not None:
-                request.headers[CORRELATION_ID_HEADER] = threadlocal.ThreadLocal.getData("correlationId")
+                request.headers[constants.HTTP_CORRELATION_ID_HEADER] = threadlocal.ThreadLocal.getData(constants.THREADLOCAL_CORRELATION_ID)
 
             startTime = time.time()*1000
             response = super().send(request, stream=stream, timeout=timeout, verify=verify, cert=cert, proxies=proxies)

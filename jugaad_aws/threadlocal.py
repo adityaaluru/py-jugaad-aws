@@ -21,3 +21,9 @@ class ThreadLocal:
     def setData(key,value):
         keyPrefix = str(threading.get_ident())+"-"
         threading.current_thread.__dict__[keyPrefix+key] = value
+    @staticmethod
+    def resetData():
+        keyPrefix = str(threading.get_ident())+"-"
+        for key in threading.current_thread.__dict__.keys():
+            if key.startswith(keyPrefix):
+                threading.current_thread.__dict__.pop(key)

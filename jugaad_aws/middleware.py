@@ -36,20 +36,23 @@ def api(app,authZScope=None,exceptionHandler=None):
                 if exceptionHandler is not None:
                     returnValue = exceptionHandler(err)
                     logMsg["response"] = {
-                        "message": "Exception raised by api handle: "+apiHandler.__name__
+                        "message": "Exception raised by api handler: "+apiHandler.__name__+". Response handled by provided exceptionHandler."
                     }
                     logger.exception(logMsg)
                 else:
                     returnValue = getHTTPErrResponse(err)
                     logMsg["response"] = {
-                        "code": returnValue.get("statusCode"),
-                        "exception": type(err).__qualname__,
+                        "statusCode": returnValue.get("statusCode"),
+                        "message": "Exception raised by api handler: "+apiHandler.__name__,
+                        "exception": type(err).__name__,
                         "errors": returnValue.get("errors")
                     }
                     logger.exception(logMsg)
             else:
+                timeElapsed = math.ceil(time.time()*1000 - startTime)
+                logMsg["timeElapsed"] = timeElapsed
                 logMsg["response"] = {
-                    "code": 200,
+                    "statusCode": 200,
                     "message": "OK"
                 }
                 logger.info(logMsg)
@@ -59,10 +62,11 @@ def api(app,authZScope=None,exceptionHandler=None):
     return decorator_api
 
 def extractThreadContext(headers):
+    threadlocal.ThreadLocal.resetData()
     if headers.get(constants.HTTP_TENANT_ID_HEADER) is not None:
         threadlocal.ThreadLocal.setData(constants.THREADLOCAL_TENANTID,headers.get(constants.HTTP_TENANT_ID_HEADER))
     if headers.get(constants.HTTP_CORRELATION_ID_HEADER) is not None:
-        threadlocal.ThreadLocal.setData(constants.THREADLOCAL_TENANTID,headers.get(constants.HTTP_CORRELATION_ID_HEADER))
+        threadlocal.ThreadLocal.setData(constants.THREADLOCAL_CORRELATION_ID,headers.get(constants.HTTP_CORRELATION_ID_HEADER))
     else:
         threadlocal.ThreadLocal.setData(constants.THREADLOCAL_CORRELATION_ID,uuid.uuid4().hex)
 

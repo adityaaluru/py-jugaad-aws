@@ -21,7 +21,7 @@ class STFormatter(logging.Formatter):
             "caller": threadlocal.ThreadLocal.getData(constants.THREADLOCAL_CALLER),
             "tenantId": threadlocal.ThreadLocal.getData(constants.THREADLOCAL_TENANTID),
             "correlationId": threadlocal.ThreadLocal.getData(constants.THREADLOCAL_CORRELATION_ID),
-            "appName": threadlocal.ThreadLocal.getData(constants.THREADLOCAL_APP_NAME),
+            "appName": utils.getAppName(),
             "loggerName": record.name,
             "file": record.filename,
             "func": record.funcName,
@@ -57,7 +57,10 @@ class STFormatter(logging.Formatter):
             return json.dumps(logMsg)
 
     def formatException(self,exc_info):
-        return traceback.format_exception(exc_info[1])
+        if exc_info is not None:
+            return traceback.format_exception(exc_info[1])
+        else:
+            return None
 
 class STLogger:
     @staticmethod

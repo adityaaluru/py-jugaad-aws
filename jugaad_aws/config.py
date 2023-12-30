@@ -22,8 +22,7 @@ class STConfigReader:
         self.parser = ConfigParser()
         self.parser.read(constants.CONFIG_FILE_NAME)
         #Determine the app name
-        self.appName = utils.getConfigWithParser(self.parser,constants.APP_NAME_KEY,constants.DEFAULT_APP_NAME)
-        threadlocal.ThreadLocal.setData(constants.THREADLOCAL_APP_NAME,self.appName)
+        self.appName = utils.getAppName()
         self.dynamicConfigTtl = float(utils.getConfigWithParser(self.parser,constants.DYNAMIC_CONFIG_TTL_KEY,constants.DEFAULT_DYNAMIC_CONFIG_TTL))
         self.featureConfigTtl = float(utils.getConfigWithParser(self.parser,constants.FEATURES_CONFIG_TTL_KEY,constants.DEFAULT_FEATURES_CONFIG_TTL))
 

@@ -3,6 +3,7 @@ from . import constants
 import os
 
 __st_parser = None
+__st_appName = None
 
 def getConfigWithParser(parser,configKey,defaultValue=None):
     configValue = defaultValue
@@ -29,3 +30,8 @@ def getConfig(configKey,defaultValue=None):
     configValue = getConfigWithParser(__st_parser,configKey,defaultValue)
     return configValue
 
+def getAppName():
+    global __st_appName
+    if __st_appName is None:
+        __st_appName = getConfig(constants.APP_NAME_KEY,constants.DEFAULT_APP_NAME)
+    return __st_appName

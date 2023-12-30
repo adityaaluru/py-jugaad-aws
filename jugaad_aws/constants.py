@@ -18,6 +18,7 @@ FEATURES_CALLER_PREFIX = "c_"
 FEATURES_CONFIG_TTL_KEY = "featureConfigRefreshInterval"
 DEFAULT_FEATURES_CONFIG_TTL = 300 #sec
 
+#Thread local items
 THREADLOCAL_CALLER = "caller"
 THREADLOCAL_TENANTID = "tenantId"
 THREADLOCAL_CORRELATION_ID = "correlationId"
@@ -26,3 +27,5 @@ THREADLOCAL_APP_NAME = "appName"
 #HTTP Headers
 HTTP_CORRELATION_ID_HEADER = "x-correlation-id"
 HTTP_TENANT_ID_HEADER = "x-tenant-id"
+HTTP_AUTH_HEADER = "Authorization" # This is to be used
+HTTP_AUTH_KEY_HEADER = "x-auth-key" # This is to be used

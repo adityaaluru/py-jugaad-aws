@@ -1,5 +1,5 @@
 import json
-import logging
+import logging, traceback
 from time import strftime, localtime
 from .  import threadlocal
 from . import utils
@@ -28,7 +28,7 @@ class STFormatter(logging.Formatter):
             "lineNo": record.lineno,
             "thread": record.thread,
             "msg": record.msg,
-            "exception": record.exc_info, # Handle this correctly
+            "exception": self.formatException(record.exc_info), # Handle this correctly
             #"task": record.taskName # FUTURE enhancement when AWS support Python 3.12 and above
         }
         if(record.levelno == logging.DEBUG):
@@ -55,6 +55,9 @@ class STFormatter(logging.Formatter):
             return json.dumps(errLogMsg)
         if(record.levelno == logging.CRITICAL):
             return json.dumps(logMsg)
+
+    def formatException(self,exc_info):
+        return traceback.format_exception(exc_info[1])
 
 class STLogger:
     @staticmethod

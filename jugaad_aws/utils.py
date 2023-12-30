@@ -15,7 +15,7 @@ def getConfigWithParser(parser,configKey,defaultValue=None):
             if parser.has_section(constants.APP_CONFIG_SECTION):
                 try:
                     configValue = parser[constants.APP_CONFIG_SECTION][configKey]
-                except KeyError:
+                except KeyError as error:
                     print("Unable to find the configKey: "+configKey+", going ahead with default value | None")
             else:
                 print("Unable to find the app config section, going ahead with the default value | None")

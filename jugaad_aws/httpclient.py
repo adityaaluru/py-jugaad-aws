@@ -30,7 +30,7 @@ class STHttpAdapter(HTTPAdapter):
 
             timeout = self.__STtimeout__
 
-            if threadlocal.ThreadLocal.getData("correlationId") is not None:
+            if threadlocal.ThreadLocal.getData(constants.THREADLOCAL_CORRELATION_ID) is not None:
                 request.headers[constants.HTTP_CORRELATION_ID_HEADER] = threadlocal.ThreadLocal.getData(constants.THREADLOCAL_CORRELATION_ID)
 
             startTime = time.time()*1000

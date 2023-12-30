@@ -67,7 +67,6 @@ class STLogger:
     def getLogger(name):
         logger = logging.getLogger(name)
         logger.setLevel(STLogger.convertLogLevel(utils.getConfig(constants.LOG_LEVEL_KEY,constants.DEFAULT_LOG_LEVEL)))
-        print("Logger Handlers: ",len(logger.handlers))
         for handler in logger.handlers:
             logger.removeHandler(handler)
         consoleHandler = logging.StreamHandler(stream=sys.stdout)

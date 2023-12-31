@@ -25,9 +25,8 @@ class ThreadLocal:
     @staticmethod
     def resetData():
         keyPrefix = str(threading.get_ident())+"-"
-        if threading.current_thread.__dict__.get(keyPrefix+constants.THREADLOCAL_CALLER):
-            threading.current_thread.__dict__.pop(keyPrefix+constants.THREADLOCAL_CALLER)
-        if threading.current_thread.__dict__.get(keyPrefix+constants.THREADLOCAL_CORRELATION_ID):
-            threading.current_thread.__dict__.pop(keyPrefix+constants.THREADLOCAL_CORRELATION_ID)
-        if threading.current_thread.__dict__.get(keyPrefix+constants.THREADLOCAL_TENANTID):
-            threading.current_thread.__dict__.pop(keyPrefix+constants.THREADLOCAL_TENANTID)
+
+        for key in list(threading.current_thread.__dict__):
+            print("KEY: "+key)
+            if key.startswith(keyPrefix):
+                threading.current_thread.__dict__.pop(key)

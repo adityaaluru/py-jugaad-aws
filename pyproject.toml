@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "py_jugaad_aws"
-version = "0.0.2"
+version = "0.0.4"
 description = "Python libraries to ease development of APIs and event driven apps for AWS serverless architecture"
 readme = "README.md"
 authors = [{ name = "Aditya Aluru", email = "aditya.aluru@gmail.com" }]

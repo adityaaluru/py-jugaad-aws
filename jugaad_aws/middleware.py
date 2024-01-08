@@ -1,6 +1,6 @@
 import functools
 import time, math, uuid
-from . import logger as log, threadlocal, constants, errors
+from . import log, threadlocal, constants, errors
 
 logger = log.STLogger.getLogger(__name__)
 

@@ -1,3 +1,3 @@
-__all__ = ["config","httpclient","logger", "threadlocal"]
+__all__ = ["config","httpclient","log", "threadlocal","middleware","errors"]
 # Version of the starterlib library
-__version__ = "0.1.2"
+__version__ = "0.0.4"

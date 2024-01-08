@@ -1,5 +1,4 @@
 import threading
-from . import constants
 
 class ThreadLocal:
     @staticmethod

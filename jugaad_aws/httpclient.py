@@ -1,7 +1,7 @@
 import time, math
 import requests
 from .  import threadlocal, constants
-from . import logger as log
+from . import log
 from requests.adapters import HTTPAdapter
 
 # PENDING: Move these to constants

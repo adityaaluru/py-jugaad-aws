@@ -1,6 +1,6 @@
 from configparser import ConfigParser
 import time
-from . import logger as log
+from . import log
 from . import constants
 from . import utils
 from . import threadlocal
